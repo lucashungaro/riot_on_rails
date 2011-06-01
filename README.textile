@@ -44,7 +44,7 @@ You cannot disable rack-test being included into your contexts. If you don't wan
 
 Riot on Rails doesn't work on Rails 2.x or older versions.
 
-Testing models is as simple as testing any pure Ruby class, no fuzz. To test controllers you can now rely on Rack::Test API. A simple example follows:
+Testing models is as simple as testing any pure Ruby class, no fuzz. To test controllers you can now rely on the Rack::Test API. A simple example follows:
 
 <pre>
   context HomeController do
@@ -75,5 +75,5 @@ Includes code from "Padrino's":http://www.padrinorb.com generators and "riot-rai
 
 h3. License
 
-sentinel is released under the MIT license. See "MIT LICENSE":https://github.com/lucashungaro/riot_on_rails/blob/master/MIT-LICENSE.
+riot_on_rails is released under the MIT license. See "MIT LICENSE":https://github.com/lucashungaro/riot_on_rails/blob/master/MIT-LICENSE.
 
