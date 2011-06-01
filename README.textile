@@ -1,0 +1,79 @@
+h1. Riot on Rails
+
+Hooks the Riot testing framework into Ruby on Rails.
+
+Riot on Rails is a really small set of code to make developing Rails apps with Riot easier. No extra macros or helpers provided, just the bare basics.
+
+Does Riot on Rails helps your daily work with Ruby? So, "please recommend me in Work With Rails":http://workingwithrails.com/recommendation/new/person/9370-lucas-h-ngaro and thanks for your kindness! :)
+
+h2. Why?
+
+There's already "riot-rails":https://github.com/thumblemonks/riot-rails but it's too much for my needs. I don't use macros as they hook into internals and use a lot of reflection on structure, and BDD is all about behavior. So, yes, I do write all the test code for ActiveRecord validations and relationships without macros and, hey, I'm still alive! ;)
+
+h2. How?
+
+Just add riot_on_rails into your Gemfile:
+
+<pre>
+  group :test do
+    gem "riot_on_rails"
+  end
+</pre>
+
+For runtime, it depends on "database_cleaner":https://github.com/bmabey/database_cleaner for, wait for it, cleaning up your database, and "rack-test":https://github.com/brynary/rack-test for controller testing. These gems will be installed by Bundler.
+
+You can disable database_cleaner this way:
+
+<pre>
+  RiotOnRails.database_cleaner = false  # true by default
+</pre>
+
+I opted for database_cleaner instead of hooking into ActiveRecord transactions because this way the gem provides much more flexibility (you can use other ORMs and cleaning strategies) and is less brittle (doesn't breaks if ActiveRecord changes).
+
+You can also disable database_cleaner for specific contexts, like this:
+
+<pre>
+  context "my context" do
+    set :skip_database_cleaner, true
+
+    # tests, tests, tests
+  end
+</pre>
+
+You cannot disable rack-test being included into your contexts. If you don't want to use it, there's really no reason to use this gem. :)
+
+Riot on Rails doesn't work on Rails 2.x or older versions.
+
+Testing models is as simple as testing any pure Ruby class, no fuzz. To test controllers you can now rely on Rack::Test API. A simple example follows:
+
+<pre>
+  context HomeController do
+    context "site index" do
+      setup { get "/" }
+
+      asserts(:status).equals(200)
+      asserts("says hello!") { last_response.body =~ /hello/ }
+    end
+  end
+</pre>
+
+For integration test I recommend using "melee":https://github.com/achiu/melee and "capybara":https://github.com/jnicklas/capybara.
+
+h2. Note on Patches/Pull Requests
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself so I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+h2. Contributors
+
+Includes code from "Padrino's":http://www.padrinorb.com generators and "riot-rails":https://github.com/thumblemonks/riot-rails
+
+h3. License
+
+sentinel is released under the MIT license. See "MIT LICENSE":https://github.com/lucashungaro/riot_on_rails/blob/master/MIT-LICENSE.
+
