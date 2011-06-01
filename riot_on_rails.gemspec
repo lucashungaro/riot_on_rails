@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
 
   # These gems are required for runtime and development :)
   s.add_dependency("riot", "~> 0.12.4")
-  s.add_dependency("rack-test", "~> 0.5.7")
+  s.add_dependency("rack-test")
   s.add_dependency("database_cleaner", "~> 0.6.7")
 
   s.add_development_dependency("rake", "~> 0.8.7")
